@@ -46,7 +46,7 @@ A powerful Natural Language to SQL (NL2SQL) system that enables non-technical us
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/nl2sql-generator.git
+   git clone https://github.com/jagrut70/natural-language-to-sql-generator.git
    cd nl2sql-generator
    ```
 
@@ -305,9 +305,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/nl2sql-generator/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/nl2sql-generator/discussions)
-- **Email**: your.email@example.com
+- **Issues**: [GitHub Issues](https://github.com/jagrut70/natural-language-to-sql-generator/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/jagrut70/natural-language-to-sql-generator/discussions)
+- **Email**: jagrut70@gmail.com
 
 ---
 
