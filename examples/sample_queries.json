@@ -1,0 +1,136 @@
+{
+  "examples": [
+    {
+      "natural_language": "Show me all users",
+      "sql": "SELECT * FROM users",
+      "category": "basic_select",
+      "difficulty": "easy"
+    },
+    {
+      "natural_language": "Find users who signed up last month",
+      "sql": "SELECT * FROM users WHERE created_at >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') AND created_at < DATE_TRUNC('month', CURRENT_DATE)",
+      "category": "date_filtering",
+      "difficulty": "medium"
+    },
+    {
+      "natural_language": "Count the number of orders per customer",
+      "sql": "SELECT customer_id, COUNT(*) as order_count FROM orders GROUP BY customer_id",
+      "category": "aggregation",
+      "difficulty": "medium"
+    },
+    {
+      "natural_language": "Get the top 10 customers by total order value",
+      "sql": "SELECT customer_id, SUM(order_total) as total_value FROM orders GROUP BY customer_id ORDER BY total_value DESC LIMIT 10",
+      "category": "aggregation_ordering",
+      "difficulty": "hard"
+    },
+    {
+      "natural_language": "Show me products and their categories",
+      "sql": "SELECT p.name, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id",
+      "category": "joins",
+      "difficulty": "medium"
+    },
+    {
+      "natural_language": "Find customers who have placed more than 5 orders",
+      "sql": "SELECT customer_id FROM orders GROUP BY customer_id HAVING COUNT(*) > 5",
+      "category": "having_clause",
+      "difficulty": "hard"
+    },
+    {
+      "natural_language": "Get the average order value by month",
+      "sql": "SELECT DATE_TRUNC('month', order_date) as month, AVG(order_total) as avg_order_value FROM orders GROUP BY DATE_TRUNC('month', order_date) ORDER BY month",
+      "category": "date_aggregation",
+      "difficulty": "hard"
+    },
+    {
+      "natural_language": "Find products that are out of stock",
+      "sql": "SELECT * FROM products WHERE stock_quantity = 0",
+      "category": "condition_filtering",
+      "difficulty": "easy"
+    },
+    {
+      "natural_language": "Show me the most expensive product in each category",
+      "sql": "SELECT p.name, p.price, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.price = (SELECT MAX(price) FROM products WHERE category_id = p.category_id)",
+      "category": "subqueries",
+      "difficulty": "hard"
+    },
+    {
+      "natural_language": "Get customers who haven't placed any orders",
+      "sql": "SELECT * FROM customers WHERE id NOT IN (SELECT DISTINCT customer_id FROM orders)",
+      "category": "not_in_subquery",
+      "difficulty": "hard"
+    },
+    {
+      "natural_language": "Find products with price between $10 and $100",
+      "sql": "SELECT * FROM products WHERE price BETWEEN 10 AND 100",
+      "category": "range_filtering",
+      "difficulty": "easy"
+    },
+    {
+      "natural_language": "Get the total revenue by product category",
+      "sql": "SELECT c.name as category, SUM(oi.quantity * oi.unit_price) as total_revenue FROM order_items oi JOIN products p ON oi.product_id = p.id JOIN categories c ON p.category_id = c.id GROUP BY c.name ORDER BY total_revenue DESC",
+      "category": "complex_joins_aggregation",
+      "difficulty": "hard"
+    },
+    {
+      "natural_language": "Show me users with their order counts and total spent",
+      "sql": "SELECT u.username, COUNT(o.id) as order_count, SUM(o.order_total) as total_spent FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.id, u.username ORDER BY total_spent DESC",
+      "category": "left_join_aggregation",
+      "difficulty": "hard"
+    },
+    {
+      "natural_language": "Find products that have been ordered more than 3 times",
+      "sql": "SELECT p.name, COUNT(oi.id) as order_count FROM products p JOIN order_items oi ON p.id = oi.product_id GROUP BY p.id, p.name HAVING COUNT(oi.id) > 3 ORDER BY order_count DESC",
+      "category": "having_clause",
+      "difficulty": "medium"
+    },
+    {
+      "natural_language": "Get the latest order for each customer",
+      "sql": "SELECT DISTINCT ON (user_id) user_id, order_date, order_total FROM orders ORDER BY user_id, order_date DESC",
+      "category": "distinct_on",
+      "difficulty": "hard"
+    }
+  ],
+  "patterns": {
+    "count": {
+      "keywords": ["count", "number of", "how many", "total"],
+      "sql_template": "SELECT COUNT(*) FROM {table}",
+      "description": "Counting records"
+    },
+    "sum": {
+      "keywords": ["sum", "total", "sum of", "add up"],
+      "sql_template": "SELECT SUM({column}) FROM {table}",
+      "description": "Summing values"
+    },
+    "average": {
+      "keywords": ["average", "avg", "mean", "average of"],
+      "sql_template": "SELECT AVG({column}) FROM {table}",
+      "description": "Calculating averages"
+    },
+    "group_by": {
+      "keywords": ["per", "by", "group by", "for each"],
+      "sql_template": "SELECT {columns} FROM {table} GROUP BY {group_columns}",
+      "description": "Grouping results"
+    },
+    "order_by": {
+      "keywords": ["order by", "sort by", "highest", "lowest", "top", "bottom"],
+      "sql_template": "SELECT {columns} FROM {table} ORDER BY {order_column} {direction}",
+      "description": "Ordering results"
+    },
+    "date_filter": {
+      "keywords": ["today", "yesterday", "last week", "last month", "this year"],
+      "sql_template": "SELECT {columns} FROM {table} WHERE {date_column} {condition}",
+      "description": "Date-based filtering"
+    },
+    "price_range": {
+      "keywords": ["between", "price range", "cost between"],
+      "sql_template": "SELECT {columns} FROM {table} WHERE {price_column} BETWEEN {min_value} AND {max_value}",
+      "description": "Price range filtering"
+    },
+    "join_tables": {
+      "keywords": ["with", "and their", "including", "show me"],
+      "sql_template": "SELECT {columns} FROM {table1} JOIN {table2} ON {table1}.{key} = {table2}.{key}",
+      "description": "Joining tables"
+    }
+  }
+}
