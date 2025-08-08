@@ -307,7 +307,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Issues**: [GitHub Issues](https://github.com/jagrut70/natural-language-to-sql-generator/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/jagrut70/natural-language-to-sql-generator/discussions)
-- **Email**: jagrut70@gmail.com
 
 ---
 
